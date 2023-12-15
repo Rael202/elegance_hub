@@ -1,0 +1,71 @@
+type Appointment = record {
+  id : nat64;
+  status : text;
+  updated_at : opt nat64;
+  date : text;
+  time : text;
+  created_at : nat64;
+  service_id : nat64;
+  client_id : nat64;
+};
+type AppointmentPayload = record {
+  status : text;
+  date : text;
+  time : text;
+  service_id : nat64;
+  client_id : nat64;
+};
+type Client = record {
+  id : nat64;
+  name : text;
+  email : text;
+  address : text;
+  phone : text;
+};
+type ClientPayload = record {
+  name : text;
+  email : text;
+  address : text;
+  phone : text;
+};
+type Result = variant { Ok : Appointment; Err : text };
+type Result_1 = variant { Ok : Client; Err : text };
+type Result_2 = variant { Ok : Service; Err : text };
+type Result_3 = variant { Ok; Err : text };
+type Service = record {
+  id : nat64;
+  duration : nat64;
+  name : text;
+  description : text;
+  price : nat64;
+};
+type ServicePayload = record {
+  duration : nat64;
+  name : text;
+  description : text;
+  price : nat64;
+};
+service : {
+  create_appointment : (AppointmentPayload) -> (Result);
+  create_client : (ClientPayload) -> (Result_1);
+  create_service : (ServicePayload) -> (Result_2);
+  delete_appointment_by_id : (nat64) -> (Result_3);
+  delete_client_by_id : (nat64) -> (Result_3);
+  delete_service_by_id : (nat64) -> (Result_3);
+  get_all_appointments : () -> (vec Appointment) query;
+  get_all_appointments_by_client_id : (nat64) -> (vec Appointment) query;
+  get_all_appointments_by_date : (text) -> (vec Appointment) query;
+  get_all_appointments_by_service_id : (nat64) -> (vec Appointment) query;
+  get_all_appointments_by_status : (text) -> (vec Appointment) query;
+  get_all_clients : () -> (vec Client) query;
+  get_all_services : () -> (vec Service) query;
+  get_appointment_by_id : (nat64) -> (Result) query;
+  get_client_by_id : (nat64) -> (Result_1) query;
+  get_most_popular_client : () -> (Client) query;
+  get_most_popular_service : () -> (Service) query;
+  get_service_by_id : (nat64) -> (Result_2) query;
+  get_total_revenue_by_service_id_and_date : (nat64, text) -> (nat64) query;
+  update_appointment : (nat64, AppointmentPayload) -> (Result);
+  update_client : (nat64, ClientPayload) -> (Result_1);
+  update_service : (nat64, ServicePayload) -> (Result_2);
+}

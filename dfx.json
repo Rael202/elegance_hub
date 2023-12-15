@@ -1,0 +1,30 @@
+{
+  "canisters": {
+    "elegance_hub_backend": {
+      "candid": "src/elegance_hub_backend/elegance_hub_backend.did",
+      "package": "elegance_hub_backend",
+      "type": "rust"
+    },
+    "elegance_hub_frontend": {
+      "dependencies": [
+        "elegance_hub_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/elegance_hub_frontend/src/index.html"
+      },
+      "source": [
+        "src/elegance_hub_frontend/assets",
+        "dist/elegance_hub_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
